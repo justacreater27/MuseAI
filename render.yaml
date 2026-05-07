@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: museai-backend
+    runtime: python
+    pythonVersion: 3.13.0
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port 8000
+    envVars:
+      - key: GEMINI_API_KEY
+        scope: build
+      - key: XAI_API_KEY
+        scope: build
