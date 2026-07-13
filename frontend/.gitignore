@@ -1,1 +1,24 @@
-.vercel
+# Node
+node_modules/
+frontend/node_modules/
+
+# Build output
+dist/
+frontend/dist/
+
+# Vercel
+.vercel/
+frontend/.vercel/
+
+# Test results
+test-results/
+frontend/test-results/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Environment files
+.env
+.env.*
