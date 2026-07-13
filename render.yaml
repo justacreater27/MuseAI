@@ -2,7 +2,6 @@ services:
   - type: web
     name: museai-backend
     runtime: python
-    pythonVersion: 3.13.0
     rootDir: .
     buildCommand: pip install -r backend/requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port 8000
