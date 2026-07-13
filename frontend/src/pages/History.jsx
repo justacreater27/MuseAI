@@ -69,11 +69,11 @@ export default function History() {
                       <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
                         <span style={{ fontSize: '1.25rem' }}>{TYPE_ICONS[h.content_type]}</span>
                         <div>
-                          <div style={{ fontWeight: 600, fontSize: '0.9rem', color: '#1A1A14', marginBottom: '0.15rem' }}>
-                            {h.brand} — <span style={{ color, textTransform: 'capitalize' }}>{h.content_type}</span>
+                          <div style={{ fontWeight: 700, fontSize: '0.98rem', color: '#1A1A14', marginBottom: '0.12rem' }}>
+                            {h.title}
                           </div>
                           <div style={{ color: '#8A8070', fontSize: '0.78rem' }}>
-                            {h.language} · {h.tone} · {new Date(h.timestamp).toLocaleString()}
+                            {h.brand ? `${h.brand} · ` : ''}{h.language} · {h.tone} · {new Date(h.timestamp).toLocaleString()}
                           </div>
                         </div>
                       </div>

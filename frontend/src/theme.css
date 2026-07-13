@@ -1,0 +1,241 @@
+/* ═══════════════════════════════════════════════════════════════════
+   MuseAI — Dark / Light Theme System
+   Place at: src/theme.css
+   Import once in main.jsx: import './theme.css'
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Light theme (default) ────────────────────────────────────────── */
+:root,
+[data-theme="light"] {
+
+  /* Backgrounds */
+  --bg-page:        #F8F5EE;
+  --bg-surface:     #FFFFFF;
+  --bg-surface-2:   #FAFAF8;
+  --bg-surface-3:   #F4F1EA;
+  --bg-overlay:     rgba(26, 18, 8, 0.45);
+
+  /* Brand gold */
+  --gold:           #B8973A;
+  --gold-light:     #D4B254;
+  --gold-dark:      #8A6A1A;
+  --gold-muted:     rgba(184, 151, 58, 0.12);
+  --gold-border:    rgba(184, 151, 58, 0.22);
+  --gold-border-2:  rgba(184, 151, 58, 0.38);
+  --gold-glow:      rgba(184, 151, 58, 0.28);
+
+  /* Text */
+  --text-primary:   #1A1208;
+  --text-secondary: #5A4A35;
+  --text-muted:     #8A8070;
+  --text-faint:     #AEA090;
+  --text-on-gold:   #FFFFFF;
+
+  /* Borders */
+  --border:         rgba(184, 151, 58, 0.14);
+  --border-hover:   rgba(184, 151, 58, 0.28);
+  --border-strong:  rgba(184, 151, 58, 0.45);
+
+  /* Input */
+  --input-bg:       #FAFAF8;
+  --input-border:   rgba(184, 151, 58, 0.18);
+  --input-focus:    rgba(184, 151, 58, 0.50);
+  --input-shadow:   0 0 0 3px rgba(184, 151, 58, 0.12);
+
+  /* Sidebar */
+  --sidebar-bg:     #1A1208;
+  --sidebar-text:   #E8D9B8;
+  --sidebar-muted:  #8A7A5A;
+  --sidebar-active: rgba(184, 151, 58, 0.18);
+  --sidebar-hover:  rgba(255, 255, 255, 0.06);
+  --sidebar-border: rgba(184, 151, 58, 0.12);
+
+  /* Cards / shadows */
+  --shadow-sm:      0 2px 8px rgba(100, 80, 20, 0.06);
+  --shadow-md:      0 4px 20px rgba(100, 80, 20, 0.10);
+  --shadow-lg:      0 8px 32px rgba(100, 80, 20, 0.14);
+  --shadow-xl:      0 16px 48px rgba(100, 80, 20, 0.18);
+
+  /* Status */
+  --success:        #5A8A6A;
+  --success-bg:     rgba(90, 138, 106, 0.10);
+  --error:          #C0604A;
+  --error-bg:       rgba(192, 96, 74, 0.08);
+  --info:           #6482B4;
+  --info-bg:        rgba(100, 130, 180, 0.10);
+  --warning:        #B8973A;
+  --warning-bg:     rgba(184, 151, 58, 0.10);
+
+  /* Scrollbar */
+  --scrollbar:      rgba(184, 151, 58, 0.22);
+  --scrollbar-hover:rgba(184, 151, 58, 0.45);
+
+  /* Accent colors for section cards */
+  --accent-orange:  #E07B5A;
+  --accent-purple:  #9B7AC5;
+  --accent-teal:    #4A9B9B;
+  --accent-green:   #6B9B6B;
+  --accent-blue:    #6482B4;
+  --accent-rose:    #C07A6A;
+  --accent-sky:     #7A9EC5;
+}
+
+/* ── Dark theme ───────────────────────────────────────────────────── */
+[data-theme="dark"] {
+
+  /* Backgrounds */
+  --bg-page:        #0F0B06;
+  --bg-surface:     #1A1208;
+  --bg-surface-2:   #221A0E;
+  --bg-surface-3:   #2A2015;
+  --bg-overlay:     rgba(0, 0, 0, 0.65);
+
+  /* Brand gold — slightly brighter in dark mode */
+  --gold:           #D4AA4A;
+  --gold-light:     hwb(42 38% 9%);
+  --gold-dark:      #B8973A;
+  --gold-muted:     rgba(212, 170, 74, 0.14);
+  --gold-border:    rgba(212, 170, 74, 0.22);
+  --gold-border-2:  rgba(212, 170, 74, 0.40);
+  --gold-glow:      rgba(212, 170, 74, 0.30);
+
+  /* Text */
+  --text-primary:   #F0E8D0;
+  --text-secondary: #C8B890;
+  --text-muted:     #8A7A5A;
+  --text-faint:     #5A4A30;
+  --text-on-gold:   #1A1208;
+
+  /* Borders */
+  --border:         rgba(212, 170, 74, 0.12);
+  --border-hover:   rgba(212, 170, 74, 0.25);
+  --border-strong:  rgba(212, 170, 74, 0.40);
+
+  /* Input */
+  --input-bg:       #221A0E;
+  --input-border:   rgba(212, 170, 74, 0.18);
+  --input-focus:    rgba(212, 170, 74, 0.50);
+  --input-shadow:   0 0 0 3px rgba(212, 170, 74, 0.12);
+
+  /* Sidebar — deeper in dark mode */
+  --sidebar-bg:     #0A0704;
+  --sidebar-text:   #D4B870;
+  --sidebar-muted:  #6A5A3A;
+  --sidebar-active: rgba(212, 170, 74, 0.16);
+  --sidebar-hover:  rgba(255, 255, 255, 0.04);
+  --sidebar-border: rgba(212, 170, 74, 0.10);
+
+  /* Cards / shadows */
+  --shadow-sm:      0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md:      0 4px 20px rgba(0, 0, 0, 0.35);
+  --shadow-lg:      0 8px 32px rgba(0, 0, 0, 0.45);
+  --shadow-xl:      0 16px 48px rgba(0, 0, 0, 0.55);
+
+  /* Status */
+  --success:        #6AAA7A;
+  --success-bg:     rgba(106, 170, 122, 0.12);
+  --error:          #D0705A;
+  --error-bg:       rgba(208, 112, 90, 0.10);
+  --info:           #7A9AC4;
+  --info-bg:        rgba(122, 154, 196, 0.12);
+  --warning:        #D4AA4A;
+  --warning-bg:     rgba(212, 170, 74, 0.12);
+
+  /* Scrollbar */
+  --scrollbar:      rgba(212, 170, 74, 0.18);
+  --scrollbar-hover:rgba(212, 170, 74, 0.38);
+
+  /* Accent colors — slightly lightened for dark bg */
+  --accent-orange:  #E89070;
+  --accent-purple:  #B090D5;
+  --accent-teal:    #5AABAB;
+  --accent-green:   #7BAB7B;
+  --accent-blue:    #7492C4;
+  --accent-rose:    #D08A7A;
+  --accent-sky:     #8AAED5;
+}
+
+/* ── Base styles using variables ──────────────────────────────────── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-family: 'Jost', sans-serif;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+/* All surfaces */
+.surface  { background: var(--bg-surface);   transition: background 0.35s ease; }
+.surface2 { background: var(--bg-surface-2); transition: background 0.35s ease; }
+.surface3 { background: var(--bg-surface-3); transition: background 0.35s ease; }
+
+/* ── Input global styles ──────────────────────────────────────────── */
+input, textarea, select {
+  background:    var(--input-bg);
+  color:         var(--text-primary);
+  border-color:  var(--input-border);
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+input::placeholder,
+textarea::placeholder { color: var(--text-faint); }
+input:focus, textarea:focus, select:focus {
+  border-color: var(--input-focus) !important;
+  box-shadow: var(--input-shadow) !important;
+  outline: none;
+}
+select option {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+/* ── Card global styles ───────────────────────────────────────────── */
+.card {
+  background:    var(--bg-surface);
+  border-color:  var(--border);
+  box-shadow:    var(--shadow-md);
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, transform 0.25s ease;
+}
+.card:hover {
+  border-color: var(--border-hover);
+  box-shadow:   var(--shadow-lg);
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar);
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
+
+/* ── Focus ring ───────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--gold-border-2);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ── Theme transition — smooth on ALL elements ───────────────────── */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, box-shadow, fill, stroke;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+/* But don't override animation transitions */
+[style*="animation"],
+.anim-fade-up,
+.anim-spring-in,
+.page-enter,
+.stagger-children > * {
+  transition-property: background-color, border-color, color !important;
+}

@@ -3,6 +3,8 @@ import json
 import base64
 import re
 import httpx
+import time
+from datetime import datetime
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -205,6 +207,102 @@ def run_grok(system: str, user_message: str, api_key: str) -> str:
             )
         data = response.json()
         return data["choices"][0]["message"]["content"].strip()
+
+
+def is_gemini_access_error(error_text: str) -> bool:
+    text = error_text.lower()
+    return any(token in text for token in [
+        "permission_denied",
+        "reported as leaked",
+        "api key",
+        "quota",
+        "resource_exhausted",
+        "403",
+    ])
+
+
+def build_local_generate_fallback(req: GenerateRequest) -> str:
+    brand = req.brand_info.dict()
+    culture = req.culture.dict()
+    ct = req.content_type.lower()
+
+    brand_name = brand.get("brand") or "Your Brand"
+    industry = brand.get("industry") or "your industry"
+    audience = brand.get("audience") or "your audience"
+    tone = brand.get("tone") or "clear"
+    theme = brand.get("theme") or "your theme"
+    output_language = brand.get("output_language") or "English"
+    region = culture.get("region") or "Pan-India"
+    festival = culture.get("festival") or "Everyday"
+
+    if ct == "script":
+        return f"""SCRIPT 1:
+Scene 1: A {region.lower()} setting introduces {brand_name}, a brand for {audience} in {industry}.
+Scene 2: The problem around {theme.lower()} is shown clearly.
+Scene 3: {brand_name} solves it with a {tone.lower()} message that feels native to {festival.lower()} moments.
+CTA: Invite viewers to take action today.
+---
+SCRIPT 2:
+Scene 1: A relatable day in the life of {audience}.
+Scene 2: The tension builds around the core need.
+Scene 3: {brand_name} delivers the answer in a simple, memorable way.
+CTA: Download, try, or sign up now.
+---"""
+
+    if ct == "visual":
+        return f"""VISUAL CONCEPT 1:
+HEADLINE: {brand_name} for {audience}
+LAYOUT: Bold hero visual with clear product focus and cultural accents from {region}.
+IMAGERY: Authentic, real-world scene tied to {theme}.
+COLOR STORY: Warm, premium, India-ready palette.
+TYPOGRAPHY: Strong headline with clean supporting copy.
+---
+VISUAL CONCEPT 2:
+HEADLINE: Make {brand_name} memorable
+LAYOUT: Split layout with social proof and product detail.
+IMAGERY: Everyday Indian context, styled for trust.
+COLOR STORY: Balanced contrast with accent highlights.
+TYPOGRAPHY: Modern, high-clarity, mobile-first.
+---"""
+
+    if ct == "music":
+        return f"""JINGLE 1:
+LYRICS:
+{brand_name}, made for you and me
+Built for {audience}, clear and easy
+MOOD: Uplifting and memorable
+INSTRUMENTS: Tabla, clap, soft synth
+ARRANGEMENT NOTES: Start simple, end with a strong sing-along hook.
+---
+JINGLE 2:
+LYRICS:
+From {region} to every screen
+{brand_name} keeps the message clean
+MOOD: Warm, catchy, and confident
+INSTRUMENTS: Percussion, flute, acoustic layers
+ARRANGEMENT NOTES: Keep the hook short and repeatable.
+---"""
+
+    return f"""CAMPAIGN PLAN 1:
+KEY MESSAGE: {brand_name} helps {audience} in {industry} move faster with clarity.
+TARGET AUDIENCE INSIGHT: People respond to simple, trustworthy messaging tied to real outcomes.
+CONTENT PILLARS:
+1. Trust
+2. Clarity
+3. Cultural relevance
+WEEKLY PLAN:
+Week 1: Introduce the problem and promise.
+Week 2: Show product benefits and proof.
+Week 3: Share customer stories.
+Week 4: Drive conversions with a clear CTA.
+CHANNEL STRATEGY: Instagram, YouTube, and WhatsApp for local reach.
+KPIs: Click-through rate, saves, and conversions.
+Output language: {output_language}.
+---"""
+
+
+def build_local_chat_fallback() -> str:
+    return "I’m having trouble reaching the AI provider right now, but the app itself is working. Try again in a moment or switch provider if available."
 
 
 # ── Helpers ───────────────────────────────────────────────────────────
@@ -446,7 +544,17 @@ Reply in 2-3 sentences max. Be friendly and helpful."""
         result = run_gemini(prompt, api_key)
         return {"output": result}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        error_text = str(e)
+        if is_gemini_access_error(error_text):
+            xai_api_key = os.getenv("XAI_API_KEY")
+            if xai_api_key:
+                try:
+                    result = run_grok(req.system or "You are a helpful assistant for MuseAI.", req.message, xai_api_key)
+                    return {"output": result}
+                except Exception:
+                    return {"output": build_local_chat_fallback()}
+            return {"output": build_local_chat_fallback()}
+        raise HTTPException(status_code=500, detail=error_text)
 
 
 # ── Viral / LinkedIn content (Grok or Gemini) ─────────────────────────
@@ -483,6 +591,7 @@ Use the attached image as the primary source of truth. Describe only what is vis
                 req.image_mime_type or "image/jpeg",
                 api_key,
             )
+            provider = "gemini"
 
         elif provider == "grok":
             api_key = os.getenv("XAI_API_KEY")
@@ -510,7 +619,7 @@ Use the attached image as the primary source of truth. Describe only what is vis
                 except Exception as gemini_error:
                     error_text = str(gemini_error).lower()
                     xai_api_key = os.getenv("XAI_API_KEY")
-                    if xai_api_key and ("429" in error_text or "quota" in error_text or "resource_exhausted" in error_text):
+                    if xai_api_key and ("429" in error_text or "quota" in error_text or "resource_exhausted" in error_text or "permission_denied" in error_text or "reported as leaked" in error_text):
                         try:
                             result = run_grok(full_system, req.message, xai_api_key)
                             provider = "grok"
@@ -527,6 +636,82 @@ Use the attached image as the primary source of truth. Describe only what is vis
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ── History storage (simple file-based) ─────────────────────────────────
+history_path = os.path.join(os.path.dirname(__file__), 'data', 'history.json')
+
+def load_history():
+    if not os.path.exists(history_path):
+        return []
+    try:
+        with open(history_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception:
+        return []
+
+def save_history(records):
+    os.makedirs(os.path.dirname(history_path), exist_ok=True)
+    with open(history_path, 'w', encoding='utf-8') as f:
+        json.dump(records, f, ensure_ascii=False, indent=2)
+
+
+@app.get('/history')
+def get_history(user_id: str):
+    all_records = load_history()
+    user_records = [r for r in all_records if r.get('user_id') == user_id]
+    # sort by timestamp desc
+    try:
+        user_records.sort(key=lambda r: r.get('timestamp', ''), reverse=True)
+    except Exception:
+        pass
+    return {'history': user_records}
+
+
+@app.post('/history')
+def post_history(payload: dict = None):
+    if payload is None:
+        raise HTTPException(status_code=400, detail='Invalid payload')
+    user_id = payload.get('user_id')
+    entry = payload.get('entry') or {}
+    if not user_id or not entry:
+        raise HTTPException(status_code=400, detail='user_id and entry are required')
+
+    records = load_history()
+    new_rec = dict(entry)
+    # server-side id and timestamp
+    new_rec.update({'user_id': user_id, 'id': int(time.time() * 1000)})
+    if not new_rec.get('timestamp'):
+        new_rec['timestamp'] = datetime.utcnow().isoformat()
+    records.append(new_rec)
+    save_history(records)
+    return {'saved': True, 'entry': new_rec}
+
+
+@app.post('/history/sync')
+def sync_history(payload: dict = None):
+    if payload is None:
+        raise HTTPException(status_code=400, detail='Invalid payload')
+    user_id = payload.get('user_id')
+    entries = payload.get('entries') or []
+    if not user_id or not isinstance(entries, list):
+        raise HTTPException(status_code=400, detail='user_id and entries[] are required')
+
+    records = load_history()
+    added = []
+    for e in entries:
+        rec = dict(e)
+        rec.update({'user_id': user_id, 'id': int(time.time() * 1000)})
+        if not rec.get('timestamp'):
+            rec['timestamp'] = datetime.utcnow().isoformat()
+        records.append(rec)
+        added.append(rec)
+
+    save_history(records)
+    # return full user history
+    user_records = [r for r in records if r.get('user_id') == user_id]
+    user_records.sort(key=lambda r: r.get('timestamp', ''), reverse=True)
+    return {'synced': True, 'history': user_records}
 
 
 # ── Main generate endpoint (Gemini) ──────────────────────────────────
@@ -634,8 +819,25 @@ KPIs:
                 status_code=400, detail=f"Unknown content type: {ct}"
             )
 
-        result = run_gemini(prompt, api_key)
-        return {"success": True, "content_type": ct, "output": result}
+        try:
+            result = run_gemini(prompt, api_key)
+            return {"success": True, "content_type": ct, "output": result, "provider": "gemini"}
+        except Exception as gemini_error:
+            error_text = str(gemini_error)
+            if is_gemini_access_error(error_text):
+                xai_api_key = os.getenv("XAI_API_KEY")
+                if xai_api_key:
+                    try:
+                        result = run_grok(
+                            "You are MuseAI, an expert Indian creative strategist. Return only the requested content with clean structure.",
+                            prompt,
+                            xai_api_key,
+                        )
+                        return {"success": True, "content_type": ct, "output": result, "provider": "grok"}
+                    except Exception:
+                        pass
+                return {"success": True, "content_type": ct, "output": build_local_generate_fallback(req), "provider": "local_fallback"}
+            raise
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

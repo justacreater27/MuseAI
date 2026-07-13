@@ -1,0 +1,406 @@
+/* ═══════════════════════════════════════════════════════════════════
+   MuseAI — Global Animation & Transition System
+   Import once in main.jsx or App.jsx:  import './animations.css'
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Keyframes ──────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to   { opacity: 1 }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px) }
+  to   { opacity: 1; transform: translateY(0) }
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-12px) }
+  to   { opacity: 1; transform: translateY(0) }
+}
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(18px) }
+  to   { opacity: 1; transform: translateX(0) }
+}
+@keyframes fadeRight {
+  from { opacity: 0; transform: translateX(-18px) }
+  to   { opacity: 1; transform: translateX(0) }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92) }
+  to   { opacity: 1; transform: scale(1) }
+}
+@keyframes springIn {
+  from { opacity: 0; transform: scale(0.85) translateY(12px) }
+  to   { opacity: 1; transform: scale(1) translateY(0) }
+}
+@keyframes slideDown {
+  from { opacity: 0; max-height: 0;   transform: translateY(-8px) }
+  to   { opacity: 1; max-height: 2000px; transform: translateY(0) }
+}
+@keyframes spin {
+  from { transform: rotate(0deg) }
+  to   { transform: rotate(360deg) }
+}
+@keyframes spinReverse {
+  from { transform: rotate(360deg) }
+  to   { transform: rotate(0deg) }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1) }
+  50%       { opacity: 1;   transform: scale(1.05) }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center }
+  100% { background-position:  200% center }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) }
+  50%       { transform: translateY(-8px) }
+}
+@keyframes shake {
+  0%, 100%    { transform: translateX(0) }
+  20%, 60%    { transform: translateX(-5px) }
+  40%, 80%    { transform: translateX(5px) }
+}
+@keyframes ping {
+  0%    { transform: scale(1);   opacity: 0.8 }
+  100%  { transform: scale(1.6); opacity: 0 }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0);    animation-timing-function: cubic-bezier(0.8, 0, 1, 1) }
+  50%       { transform: translateY(-6px); animation-timing-function: cubic-bezier(0, 0, 0.2, 1) }
+}
+@keyframes dotDance {
+  0%, 80%, 100% { transform: translateY(0);   opacity: 0.4 }
+  40%            { transform: translateY(-6px); opacity: 1 }
+}
+@keyframes checkPop {
+  0%   { transform: scale(0) rotate(-45deg); opacity: 0 }
+  60%  { transform: scale(1.25) rotate(5deg); opacity: 1 }
+  100% { transform: scale(1) rotate(0deg);   opacity: 1 }
+}
+@keyframes ripple {
+  0%   { transform: scale(0); opacity: 0.4 }
+  100% { transform: scale(4); opacity: 0 }
+}
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 1 }
+  50%       { opacity: 0.4 }
+}
+@keyframes progressFill {
+  from { width: 0% }
+  to   { width: 100% }
+}
+@keyframes toastSlide {
+  from { opacity: 0; transform: translateX(100%) }
+  to   { opacity: 1; transform: translateX(0) }
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.94) translateY(16px) }
+  to   { opacity: 1; transform: scale(1) translateY(0) }
+}
+@keyframes overlayIn {
+  from { opacity: 0 }
+  to   { opacity: 1 }
+}
+@keyframes countUp {
+  from { transform: translateY(100%); opacity: 0 }
+  to   { transform: translateY(0);    opacity: 1 }
+}
+@keyframes gradientShift {
+  0%   { background-position: 0% 50% }
+  50%  { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
+/* ── Page transitions ───────────────────────────────────────────── */
+.page-enter {
+  animation: fadeUp 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.page-enter-fast {
+  animation: fadeUp 0.28s ease both;
+}
+.page-enter-slow {
+  animation: fadeUp 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ── Stagger children ───────────────────────────────────────────── */
+.stagger-children > * { animation: fadeUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.stagger-children > *:nth-child(1)  { animation-delay: 0ms }
+.stagger-children > *:nth-child(2)  { animation-delay: 60ms }
+.stagger-children > *:nth-child(3)  { animation-delay: 120ms }
+.stagger-children > *:nth-child(4)  { animation-delay: 180ms }
+.stagger-children > *:nth-child(5)  { animation-delay: 240ms }
+.stagger-children > *:nth-child(6)  { animation-delay: 300ms }
+.stagger-children > *:nth-child(7)  { animation-delay: 360ms }
+.stagger-children > *:nth-child(8)  { animation-delay: 420ms }
+.stagger-children > *:nth-child(9)  { animation-delay: 480ms }
+.stagger-children > *:nth-child(10) { animation-delay: 540ms }
+
+/* ── Utility animation classes ──────────────────────────────────── */
+.anim-fade-in    { animation: fadeIn   0.3s ease both }
+.anim-fade-up    { animation: fadeUp   0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both }
+.anim-fade-down  { animation: fadeDown 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both }
+.anim-scale-in   { animation: scaleIn  0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both }
+.anim-spring-in  { animation: springIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both }
+.anim-modal      { animation: modalIn  0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both }
+.anim-toast      { animation: toastSlide 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both }
+.anim-shake      { animation: shake    0.4s ease both }
+.anim-float      { animation: float    3s ease-in-out infinite }
+.anim-pulse      { animation: pulse    1.5s ease-in-out infinite }
+.anim-spin       { animation: spin     0.9s linear infinite }
+.anim-bounce     { animation: bounce   1s ease-in-out infinite }
+
+/* ── Delay utilities ────────────────────────────────────────────── */
+.delay-0   { animation-delay: 0ms }
+.delay-50  { animation-delay: 50ms }
+.delay-100 { animation-delay: 100ms }
+.delay-150 { animation-delay: 150ms }
+.delay-200 { animation-delay: 200ms }
+.delay-250 { animation-delay: 250ms }
+.delay-300 { animation-delay: 300ms }
+.delay-400 { animation-delay: 400ms }
+.delay-500 { animation-delay: 500ms }
+
+/* ── Global element transitions ─────────────────────────────────── */
+
+/* Every button gets a smooth base transition */
+button {
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+              box-shadow 0.2s ease, transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.2s ease;
+}
+button:active:not(:disabled) {
+  transform: scale(0.95) !important;
+}
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Links */
+a {
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+/* Inputs / Textareas / Selects */
+input, textarea, select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+}
+
+/* Images */
+img {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ── Hover lift cards ────────────────────────────────────────────── */
+.card-hover {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease,
+              border-color 0.25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+}
+
+/* ── Interactive chip/tag ────────────────────────────────────────── */
+.chip {
+  transition: background 0.18s ease, color 0.18s ease,
+              border-color 0.18s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.18s ease;
+}
+.chip:hover  { transform: scale(1.05); }
+.chip.active { transform: scale(1.05); }
+
+/* ── Dropdown / accordion panels ────────────────────────────────── */
+.dropdown-panel {
+  overflow: hidden;
+  transition: max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.25s ease;
+}
+.dropdown-panel.open  { max-height: 2000px; opacity: 1; }
+.dropdown-panel.closed { max-height: 0;     opacity: 0; }
+
+/* Chevron rotation */
+.chevron {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.chevron.open { transform: rotate(180deg); }
+
+/* ── Sidebar / drawer ────────────────────────────────────────────── */
+.sidebar {
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
+}
+.sidebar.open   { transform: translateX(0);      opacity: 1; }
+.sidebar.closed { transform: translateX(-100%);  opacity: 0; }
+
+/* ── Navigation active pill ──────────────────────────────────────── */
+.nav-item {
+  transition: background 0.2s ease, color 0.2s ease,
+              transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.2s ease;
+  position: relative;
+}
+.nav-item.active { transform: scale(1.04); }
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%; height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.nav-item.active::after,
+.nav-item:hover::after { transform: translateX(-50%) scaleX(1); }
+
+/* ── Toggle switch ───────────────────────────────────────────────── */
+.toggle-track {
+  display: inline-flex;
+  width: 42px; height: 24px;
+  border-radius: 50px;
+  background: #D1C9B8;
+  cursor: pointer;
+  transition: background 0.25s ease;
+  align-items: center;
+  padding: 2px;
+  border: none;
+}
+.toggle-track.on { background: #B8973A; }
+.toggle-thumb {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.toggle-track.on .toggle-thumb { transform: translateX(18px); }
+
+/* ── Tab switcher ────────────────────────────────────────────────── */
+.tab-bar {
+  position: relative;
+  display: flex;
+  background: rgba(184,151,58,0.07);
+  border-radius: 10px;
+  padding: 3px;
+}
+.tab-item {
+  position: relative;
+  padding: 0.35rem 1rem;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  color: #8A8070;
+  transition: color 0.2s ease;
+  z-index: 1;
+}
+.tab-item.active { color: #B8973A; font-weight: 600; }
+.tab-slider {
+  position: absolute;
+  top: 3px; left: 3px;
+  height: calc(100% - 6px);
+  background: #FFFFFF;
+  border-radius: 7px;
+  box-shadow: 0 1px 4px rgba(100,80,20,0.12);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Modal overlay ───────────────────────────────────────────────── */
+.modal-overlay {
+  animation: overlayIn 0.25s ease both;
+}
+.modal-content {
+  animation: modalIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ── Toast / snackbar ────────────────────────────────────────────── */
+.toast { animation: toastSlide 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.toast-exit { animation: toastSlide 0.25s cubic-bezier(0.4, 0, 1, 1) both reverse; }
+
+/* ── Skeleton loading ────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, #F0EDE4 25%, #E8E4D8 50%, #F0EDE4 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+/* ── Badge / counter ─────────────────────────────────────────────── */
+.badge {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.2s ease;
+}
+.badge:not(:empty) { transform: scale(1); }
+
+/* ── Progress bar ────────────────────────────────────────────────── */
+.progress-bar-fill {
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: inherit;
+}
+
+/* ── Floating action button ──────────────────────────────────────── */
+.fab {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease;
+}
+.fab:hover  { transform: scale(1.1) translateY(-2px); }
+.fab:active { transform: scale(0.95); }
+
+/* ── List item row ───────────────────────────────────────────────── */
+.list-row {
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.list-row:hover { background: rgba(184,151,58,0.05); }
+
+/* ── Icon button ─────────────────────────────────────────────────── */
+.icon-btn {
+  transition: background 0.2s ease, color 0.2s ease,
+              transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.icon-btn:hover  { transform: scale(1.12); }
+.icon-btn:active { transform: scale(0.92); }
+
+/* ── Divider line ────────────────────────────────────────────────── */
+.divider {
+  transition: opacity 0.3s ease;
+}
+
+/* ── Tooltip ─────────────────────────────────────────────────────── */
+.tooltip {
+  animation: fadeDown 0.2s ease both;
+  pointer-events: none;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(184,151,58,0.22);
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(184,151,58,0.45); }
+
+/* ── Focus ring (accessibility) ──────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid rgba(184,151,58,0.6);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ── Reduced motion support ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

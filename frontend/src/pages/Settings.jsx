@@ -1,6 +1,9 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import AppLayout from '../components/layout/AppLayout'
 import { useLanguage, APP_LANGUAGES } from '../context/LanguageContext'
+import { logOut } from '../utils/firebase'
+import ConfirmModal from '../components/ui/ConfirmModal'
 
 const SETTINGS_LABELS = {
   English:   { defaults: 'Default Preferences', outputLang: 'Default Output Language', region: 'Default Region', tone: 'Default Tone', notifications: 'Notifications', notifDesc: 'Receive generation alerts', autoCopy: 'Auto Copy Output', autoCopyDesc: 'Automatically copy generated content', save: 'Save Settings', saved: '✓ Saved!', uiSection: 'App Language & Display', uiLangLabel: 'UI Language', uiLangDesc: 'Changes language across the entire app including sidebar', title: 'Settings' },
@@ -89,7 +92,8 @@ const rowStyle = {
 }
 
 export default function Settings() {
-  const { lang, setLang } = useLanguage()
+  const navigate = useNavigate()
+  const { lang, setLang, labels } = useLanguage()
   const L = SETTINGS_LABELS[lang] || SETTINGS_LABELS.English
 
   const [settings, setSettings] = useState({
@@ -107,6 +111,16 @@ export default function Settings() {
   const handleSave = () => {
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
+  }
+  const [signoutOpen, setSignoutOpen] = useState(false)
+  const doSignOut = async () => {
+    setSignoutOpen(false)
+    try {
+      await logOut()
+    } catch (err) {
+      console.error('Logout failed', err)
+    }
+    navigate('/login')
   }
 
   return (
@@ -199,6 +213,14 @@ export default function Settings() {
         }}>
           {saved ? L.saved : L.save}
         </button>
+
+        <button onClick={() => setSignoutOpen(true)} style={{
+          marginTop: '0.75rem', width: '100%', padding: '0.7rem', fontSize: '0.92rem',
+          background: 'transparent', color: '#C23A3A', border: '1px solid rgba(194,58,58,0.12)', borderRadius: '10px',
+          cursor: 'pointer', fontWeight: 700, fontFamily: 'Jost, sans-serif'
+        }}>{(labels && labels.signout) || 'Sign out'}</button>
+
+        <ConfirmModal open={signoutOpen} title={(labels && labels.signout) || 'Sign out'} message={'Sign out of MuseAI?'} confirmLabel={(labels && labels.signout) || 'Sign out'} cancelLabel={'Cancel'} onConfirm={doSignOut} onCancel={() => setSignoutOpen(false)} />
 
       </div>
     </AppLayout>

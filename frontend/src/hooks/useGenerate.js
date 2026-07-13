@@ -16,9 +16,12 @@ export function useGenerate() {
       const res = await generateContent(payload)
       const result = res.data.output
       setOutput(result)
+      // derive title from first non-empty line of the result if available
+      const firstLine = (result || '').split('\n').find(l => l.trim()) || ''
       addEntry({
         content_type: payload.content_type,
         brand: payload.brand_info.brand,
+        title: firstLine.substring(0, 100),
         output: result,
         tone: payload.brand_info.tone,
         language: payload.brand_info.output_language,

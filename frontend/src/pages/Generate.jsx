@@ -100,6 +100,39 @@ const DEFAULT_OPTIONS = {
 }
 const card = { background: '#FFFFFF', border: '1px solid rgba(184,151,58,0.15)', borderRadius: '14px', padding: '1.5rem', boxShadow: '0 2px 12px rgba(100,80,20,0.06)' }
 
+function renderBoldText(text) {
+  if (!text) return null
+
+  const lines = text.split('\n')
+
+  return lines.map((line, lineIndex) => {
+    const parts = []
+    const boldPattern = /\*\*([^*]+)\*\*/g
+    let lastIndex = 0
+    let match
+
+    while ((match = boldPattern.exec(line)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(line.slice(lastIndex, match.index))
+      }
+
+      parts.push(<strong key={`${lineIndex}-${match.index}`}>{match[1]}</strong>)
+      lastIndex = boldPattern.lastIndex
+    }
+
+    if (lastIndex < line.length) {
+      parts.push(line.slice(lastIndex))
+    }
+
+    return (
+      <span key={lineIndex}>
+        {parts}
+        {lineIndex < lines.length - 1 ? <br /> : null}
+      </span>
+    )
+  })
+}
+
 function downloadTxt(text, filename) {
   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
   const url = URL.createObjectURL(blob)
@@ -264,7 +297,7 @@ export default function Generate() {
                     </button>
                   </div>
                 </div>
-                <div style={{ background: '#FAFAF8', border: '1px solid rgba(184,151,58,0.15)', borderRadius: '10px', padding: '1.25rem', whiteSpace: 'pre-wrap', fontSize: '0.88rem', lineHeight: 1.9, color: '#2A2015', maxHeight: '500px', overflowY: 'auto' }}>{output}</div>
+                <div style={{ background: '#FAFAF8', border: '1px solid rgba(184,151,58,0.15)', borderRadius: '10px', padding: '1.25rem', whiteSpace: 'pre-wrap', fontSize: '0.88rem', lineHeight: 1.9, color: '#2A2015', maxHeight: '500px', overflowY: 'auto' }}>{renderBoldText(output)}</div>
               </div>
             )}
           </div>

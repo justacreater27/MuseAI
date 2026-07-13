@@ -3,8 +3,9 @@ import AppLayout from '../components/layout/AppLayout'
 import { useAuth } from '../context/AuthContext'
 import { useHistory } from '../context/HistoryContext'
 import { useLanguage } from '../context/LanguageContext'
-import { auth } from '../utils/firebase'
+import { auth, storage } from '../utils/firebase'
 import { updateProfile, updateEmail, updatePassword, sendPasswordResetEmail, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth'
+import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 const card = { background: '#FFFFFF', border: '1px solid rgba(184,151,58,0.15)', borderRadius: '16px', padding: '1.5rem', boxShadow: '0 2px 12px rgba(100,80,20,0.06)' }
 const inputStyle = { width: '100%', padding: '0.6rem 0.9rem', border: '1.5px solid rgba(184,151,58,0.2)', borderRadius: '8px', fontSize: '0.85rem', fontFamily: 'Jost, sans-serif', background: '#FAFAF8', color: '#2A2015', outline: 'none', transition: 'border-color 0.2s' }
@@ -46,6 +47,46 @@ export default function Profile() {
   const [showDelete, setShowDelete] = useState(false)
 
   const isGoogle = user?.providerData?.[0]?.providerId === 'google.com'
+
+  // profile picture upload and public id (handle)
+  const [uploading, setUploading] = useState(false)
+  const [uploadMsg, setUploadMsg] = useState(null)
+  const defaultHandle = user?.email ? user.email.split('@')[0] : ''
+  const [publicId, setPublicId] = useState(() => {
+    try {
+      return user?.uid ? (localStorage.getItem(`museai_handle_${user.uid}`) || defaultHandle) : defaultHandle
+    } catch (e) { return defaultHandle }
+  })
+  const [savingHandle, setSavingHandle] = useState(false)
+
+  const handleFileChange = async (file) => {
+    if (!file || !user) return
+    setUploading(true); setUploadMsg(null)
+    try {
+      const key = `profilePictures/${user.uid}.jpg`
+      const sref = storageRef(storage, key)
+      await uploadBytes(sref, file)
+      const url = await getDownloadURL(sref)
+      await updateProfile(auth.currentUser, { photoURL: url })
+      setUploadMsg({ type: 'success', text: 'Profile picture updated.' })
+    } catch (e) {
+      console.error(e)
+      setUploadMsg({ type: 'error', text: e.message || 'Upload failed' })
+    }
+    setUploading(false)
+  }
+
+  const savePublicId = () => {
+    if (!user) return
+    setSavingHandle(true)
+    try {
+      localStorage.setItem(`museai_handle_${user.uid}`, publicId)
+      setSavingHandle(false)
+    } catch (e) {
+      console.error(e)
+      setSavingHandle(false)
+    }
+  }
 
   const saveName = async () => {
     if (!newName.trim()) { setNameMsg({ type: 'error', text: 'Name cannot be empty.' }); return }
@@ -137,6 +178,11 @@ export default function Profile() {
                 {isGoogle && <span style={{ background: 'rgba(74,155,155,0.08)', border: '1px solid rgba(74,155,155,0.25)', color: '#3A7A7A', borderRadius: '50px', padding: '0.2rem 0.75rem', fontSize: '0.7rem', fontWeight: 600 }}>🔗 {labels.googleAccount}</span>}
               </div>
             </div>
+          </div>
+          <div style={{ marginTop: '0.9rem', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            <label style={{ fontSize: '0.82rem', color: '#8A8070' }}>Profile picture</label>
+            <input type="file" accept="image/*" onChange={e => handleFileChange(e.target.files?.[0])} style={{ display: 'inline-block' }} />
+            {uploading ? <span style={{ marginLeft: '0.6rem', color: '#8A8070' }}>Uploading…</span> : uploadMsg && <span style={{ marginLeft: '0.6rem', color: uploadMsg.type === 'error' ? '#C0604A' : '#3A6A4A' }}>{uploadMsg.text}</span>}
           </div>
         </div>
 
@@ -254,6 +300,16 @@ export default function Profile() {
                 <span style={{ color: '#2A2015', fontSize: '0.85rem', fontWeight: 500 }}>{value}</span>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Public User ID (editable) */}
+        <div style={{ ...card, marginBottom: '1.25rem' }}>
+          <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.1rem', color: '#5A4A2A', marginBottom: '0.75rem' }}>Public User ID</h3>
+          <p style={{ color: '#8A8070', fontSize: '0.85rem', marginTop: 0 }}>This is your visible handle across MuseAI. Default is the part of your email before the @.</p>
+          <div style={{ display: 'flex', gap: '0.6rem', marginTop: '0.85rem', alignItems: 'center' }}>
+            <input value={publicId} onChange={e => setPublicId(e.target.value)} style={{ ...inputStyle, flex: 1 }} />
+            <button onClick={savePublicId} disabled={savingHandle} style={btnPrimary}>{savingHandle ? 'Saving...' : 'Save'}</button>
           </div>
         </div>
 
