@@ -42,7 +42,11 @@ export default function Login() {
     try {
       await signInWithGoogle()
       navigate('/dashboard')
-    } catch (e) { setError(getFriendlyError(e.code || e.message)) }
+    } catch (e) {
+  console.error("Google Login Error:", e);
+  alert(`Code: ${e.code}\nMessage: ${e.message}`);
+  setError(getFriendlyError(e.code || e.message));
+}
     finally { setLoading(false) }
   }
 
@@ -56,7 +60,11 @@ export default function Login() {
         await signInEmail(form.email, form.password)
       }
       navigate('/dashboard')
-    } catch (e) { setError(getFriendlyError(e.code || e.message)) }
+    } catch (e) {
+  console.error("Email Login Error:", e);
+  alert(`Code: ${e.code}\nMessage: ${e.message}`);
+  setError(getFriendlyError(e.code || e.message));
+}
     finally { setLoading(false) }
   }
 
@@ -87,7 +95,9 @@ export default function Login() {
       setSuccess(`✓ Password reset email sent to ${form.email}. Please check your inbox and spam folder.`)
       setTimeout(() => setSuccess(''), 5000)
     } catch (e) {
-      setError(getFriendlyError(e.code || e.message))
+      console.error("Forgot Password Error:", e);
+      alert(`Code: ${e.code}\nMessage: ${e.message}`);
+      setError(getFriendlyError(e.code || e.message));
     } finally {
       setLoading(false)
     }
