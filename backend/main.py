@@ -507,7 +507,7 @@ def get_culture_data():
 
 @app.get("/ai/providers")
 def get_ai_providers():
-    gemini_ok = bool(os.getenv("GEMINI_API_KEY"))
+    gemini_ok = bool(os.getenv("AIzaSyA1OqzxEZ9b5vDZmBtP3db1EKfMVmcOqZs"))
     grok_ok   = bool(os.getenv("XAI_API_KEY"))
     return {
         "providers": [
