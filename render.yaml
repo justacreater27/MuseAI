@@ -2,7 +2,7 @@ services:
   - type: web
     name: museai-backend
     runtime: python
-    key: PYTHON_VERSION
+  - key: PYTHON_VERSION
     value: "3.13.0"
     rootDir: .
     buildCommand: pip install -r backend/requirements.txt
@@ -18,7 +18,7 @@ services:
   - type: cron
     name: museai-trend-refresh
     runtime: python
-    key: PYTHON_VERSION
+  - key: PYTHON_VERSION
     value: "3.13.0"
     rootDir: .
     schedule: "0 */6 * * *"
