@@ -28,7 +28,8 @@ services:
       - key: GROQ_API_KEY
         sync: false
 
-  - type: static
+  - type: web 
+    runtime: static
     name: museai-frontend
     rootDir: frontend
     buildCommand: npm install && npm run build
