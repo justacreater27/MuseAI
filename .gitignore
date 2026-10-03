@@ -1,0 +1,54 @@
+# Python environments and generated files
+.venv/
+backend/.venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.log
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node and frontend build output
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+build/
+coverage/
+frontend/.vite/
+
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+!**/.env.example
+*.pem
+*.key
+*service-account*.json
+*service_account*.json
+
+# IDE and test artifacts
+.vscode/
+.idea/
+test-results/
+playwright-report/
+allure-results/
+allure-report/
+
+# OS/editor/cache files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Generated application data and logs
+backend/data/app_database/
+backend/data/history.json
+backend/data/profiles.json
+backend/data/campaigns.json
+backend/data/social_media_posts.json
+backend/data/settings.json
+backend/data/trends.json
+backend/data/analyzed_trends.json
+backend/data/trend_vectors.json

@@ -1,0 +1,156 @@
+{
+  "festivals": {
+    "Tamil Nadu": ["Pongal", "Karthigai Deepam", "Deepavali", "Aadi Perukku", "Chithirai Thiruvizha", "Vaikunta Ekadasi"],
+    "Kerala": ["Onam", "Vishu", "Thrissur Pooram", "Attukal Pongala", "Navaratri", "Christmas"],
+    "Maharashtra": ["Ganesh Chaturthi", "Gudi Padwa", "Makar Sankranti", "Navratri", "Diwali", "Holi"],
+    "Punjab": ["Baisakhi", "Lohri", "Gurpurab", "Diwali", "Holla Mohalla", "Teej"],
+    "West Bengal": ["Durga Puja", "Kali Puja", "Saraswati Puja", "Poila Boishakh", "Rath Yatra", "Dol Purnima"],
+    "Gujarat": ["Navratri", "Uttarayan", "Diwali", "Janmashtami", "Rath Yatra", "Holi"],
+    "Rajasthan": ["Teej", "Gangaur", "Pushkar Fair", "Desert Festival", "Diwali", "Holi"],
+    "Karnataka": ["Mysuru Dasara", "Ugadi", "Makara Sankranti", "Hampi Festival", "Deepavali", "Rajyotsava"],
+    "Andhra Pradesh": ["Ugadi", "Sankranti", "Vinayaka Chaturthi", "Deepavali", "Sri Rama Navami", "Bonalu"],
+    "Telangana": ["Bathukamma", "Bonalu", "Ugadi", "Sankranti", "Deepavali", "Sammakka Saralamma"],
+    "Uttar Pradesh": ["Kumbh Mela", "Holi", "Diwali", "Janmashtami", "Ram Navami", "Chhath Puja"],
+    "National": ["Republic Day", "Independence Day", "Gandhi Jayanti", "Diwali", "Eid", "Christmas", "Holi"]
+  },
+
+  "regions": {
+    "Tamil Nadu": {
+      "language": "Tamil",
+      "culture_keywords": ["அன்பு", "குடும்பம்", "பாரம்பரியம்", "நம்பிக்கை", "ஒற்றுமை"],
+      "food": ["idli", "dosa", "sambar", "filter coffee", "biryani", "pongal"],
+      "values": ["family", "tradition", "respect for elders", "education", "hard work"],
+      "popular_brands": ["Saravana Stores", "Pothys", "Murugan Idli Shop", "Amma Unavagam"],
+      "ad_style": "emotional, family-centric, tradition-rooted"
+    },
+    "Kerala": {
+      "language": "Malayalam",
+      "culture_keywords": ["കുടുംബം", "സ്നേഹം", "പാരമ്പര്യം", "വിശ്വാസം", "ഐക്യം"],
+      "food": ["puttu", "kadala curry", "fish curry", "appam", "payasam", "sadya"],
+      "values": ["education", "nature", "community", "simplicity", "spirituality"],
+      "popular_brands": ["Kalyan Silks", "Malabar Gold", "Kitex", "Eastern Condiments"],
+      "ad_style": "nature-inspired, serene, community-focused"
+    },
+    "Maharashtra": {
+      "language": "Marathi",
+      "culture_keywords": ["कुटुंब", "प्रेम", "परंपरा", "विश्वास", "एकता"],
+      "food": ["vada pav", "puran poli", "misal pav", "bhakri", "modak", "sol kadhi"],
+      "values": ["entrepreneurship", "resilience", "cultural pride", "innovation"],
+      "popular_brands": ["Wagh Bakri", "Chitale Bandhu", "Haldiram", "D-Mart"],
+      "ad_style": "bold, aspirational, culturally proud"
+    },
+    "Punjab": {
+      "language": "Punjabi",
+      "culture_keywords": ["ਪਰਿਵਾਰ", "ਪਿਆਰ", "ਵਿਰਾਸਤ", "ਵਿਸ਼ਵਾਸ", "ਏਕਤਾ"],
+      "food": ["butter chicken", "dal makhani", "sarson ka saag", "makki di roti", "lassi", "paratha"],
+      "values": ["hospitality", "hard work", "celebration", "generosity", "community"],
+      "popular_brands": ["Amul", "Punjab Sind", "Verka", "Bikanervala"],
+      "ad_style": "vibrant, celebratory, warm, energetic"
+    },
+    "West Bengal": {
+      "language": "Bengali",
+      "culture_keywords": ["পরিবার", "ভালোবাসা", "ঐতিহ্য", "বিশ্বাস", "ঐক্য"],
+      "food": ["rosogolla", "mishti doi", "fish curry", "luchi", "biryani", "sandesh"],
+      "values": ["art", "literature", "intellectualism", "festivals", "music"],
+      "popular_brands": ["KC Das", "Balaram Mullick", "Durga Puja committees"],
+      "ad_style": "artistic, emotional, intellectually rich"
+    },
+    "Gujarat": {
+      "language": "Gujarati",
+      "culture_keywords": ["પરિવાર", "પ્રેમ", "પરંપરા", "વિશ્વાસ", "એકતા"],
+      "food": ["dhokla", "thepla", "undhiyu", "fafda", "jalebi", "dal baati churma"],
+      "values": ["business acumen", "community", "vegetarianism", "festivals", "savings"],
+      "popular_brands": ["Amul", "Parag", "Lijjat", "Ghadi"],
+      "ad_style": "business-friendly, festive, community-driven"
+    }
+  },
+
+  "brand_tones": {
+    "traditional": {
+      "description": "warm, family-focused, emotional, nostalgic",
+      "keywords": ["trust", "heritage", "generations", "pure", "authentic"],
+      "example_brands": ["Dabur", "Patanjali", "Tanishq", "Sarees of India"]
+    },
+    "modern": {
+      "description": "bold, aspirational, youth-driven, energetic",
+      "keywords": ["innovation", "style", "trendy", "fast", "smart"],
+      "example_brands": ["Flipkart", "Zomato", "CRED", "Nykaa"]
+    },
+    "luxury": {
+      "description": "elegant, exclusive, refined, premium",
+      "keywords": ["craftsmanship", "prestige", "exclusive", "finest", "curated"],
+      "example_brands": ["Malabar Gold", "Tanishq", "Taj Hotels", "Raymond"]
+    },
+    "humorous": {
+      "description": "witty, relatable, fun, light-hearted",
+      "keywords": ["laugh", "fun", "quirky", "relatable", "everyday"],
+      "example_brands": ["Fevicol", "Asian Paints", "Amul", "Zomato"]
+    },
+    "inspirational": {
+      "description": "motivating, empowering, uplifting, emotional",
+      "keywords": ["dream", "achieve", "believe", "rise", "together"],
+      "example_brands": ["Nike India", "Tata", "Infosys", "HDFC"]
+    },
+    "regional_pride": {
+      "description": "local identity, cultural roots, community pride",
+      "keywords": ["our land", "our people", "pride", "roots", "belong"],
+      "example_brands": ["Saravana Stores", "Malabar Gold", "Wagh Bakri"]
+    }
+  },
+
+  "content_types": {
+    "script": {
+      "structures": ["problem-solution", "emotional journey", "before-after", "testimonial", "slice of life"],
+      "durations": ["15 seconds", "30 seconds", "60 seconds", "90 seconds"],
+      "hooks": ["Ask a question", "Bold statement", "Relatable situation", "Surprising fact"]
+    },
+    "music": {
+      "genres": ["classical carnatic", "bollywood", "folk", "hip hop", "indie pop", "devotional"],
+      "instruments": ["tabla", "veena", "harmonium", "dhol", "sitar", "flute", "mridangam"],
+      "moods": ["joyful", "nostalgic", "energetic", "devotional", "romantic", "motivational"]
+    },
+    "visual": {
+      "styles": ["traditional art", "modern minimalist", "vibrant festive", "earthy natural", "urban contemporary"],
+      "color_palettes": {
+        "festive": ["saffron", "gold", "red", "green"],
+        "modern": ["blue", "white", "black", "grey"],
+        "natural": ["brown", "green", "cream", "ochre"],
+        "luxury": ["gold", "maroon", "black", "ivory"]
+      }
+    },
+    "campaign": {
+      "channels": ["TV", "Digital", "Print", "Radio", "OOH", "Social Media", "WhatsApp"],
+      "objectives": ["brand awareness", "product launch", "festive sales", "emotional connect", "social cause"],
+      "durations": ["1 week", "2 weeks", "1 month", "3 months", "seasonal"]
+    }
+  },
+
+  "indian_ad_insights": {
+    "emotional_triggers": [
+      "mother's love and sacrifice",
+      "family reunion during festivals",
+      "children's success and parents' pride",
+      "friendship and loyalty",
+      "patriotism and national pride",
+      "local community support",
+      "overcoming hardship",
+      "celebrating small wins"
+    ],
+    "cultural_values": [
+      "respect for elders",
+      "importance of education",
+      "family over individual",
+      "hospitality (atithi devo bhava)",
+      "celebration of diversity",
+      "spiritual connection",
+      "hard work and perseverance",
+      "community and togetherness"
+    ],
+    "seasonal_opportunities": {
+      "Q1 (Jan-Mar)": ["Pongal", "Republic Day", "Valentine's Day", "Holi", "Women's Day"],
+      "Q2 (Apr-Jun)": ["Ugadi", "Baisakhi", "Summer sales", "Mother's Day", "IPL season"],
+      "Q3 (Jul-Sep)": ["Independence Day", "Ganesh Chaturthi", "Onam", "Teachers Day", "Back to school"],
+      "Q4 (Oct-Dec)": ["Navratri", "Dussehra", "Diwali", "Bhai Dooj", "Christmas", "New Year"]
+    }
+  }
+}
