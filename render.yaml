@@ -2,8 +2,9 @@ services:
   - type: web
     name: museai-backend
     runtime: python
-  - key: PYTHON_VERSION
-    value: "3.13.0"
+    envVars:
+     - key: PYTHON_VERSION
+       value: "3.13"
     rootDir: .
     buildCommand: pip install -r backend/requirements.txt
     startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
@@ -18,8 +19,9 @@ services:
   - type: cron
     name: museai-trend-refresh
     runtime: python
-  - key: PYTHON_VERSION
-    value: "3.13.0"
+    envVars:
+     - key: PYTHON_VERSION
+       value: "3.13"
     rootDir: .
     schedule: "0 */6 * * *"
     buildCommand: pip install -r backend/requirements.txt
