@@ -66,7 +66,7 @@ configured_origins = os.getenv("FRONTEND_ORIGINS", "")
 allowed_origins = [
     "http://localhost:5173",
     "http://localhost:3000",
-    "https://museai-frontend.onrender.com",
+    "https://justacreater27.github.io",
     *[origin.strip() for origin in configured_origins.split(",") if origin.strip()],
 ]
 

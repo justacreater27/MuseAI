@@ -359,7 +359,7 @@ Each file is:
 ## 🔄 Next Steps (Recommendations)
 
 ### Short Term
-1. Deploy to Render (backend) & Vercel (frontend)
+1. Deploy the frontend to GitHub Pages and backend to Vercel (see DEPLOYMENT.md)
 2. Configure social media API credentials
 3. Test social media posting workflow
 4. Monitor health check endpoint

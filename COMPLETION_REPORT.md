@@ -365,8 +365,8 @@ curl http://localhost:8000/platform/info
 5. Test endpoints with curl
 
 ### Short Term (This Week)
-1. Deploy backend to Render
-2. Deploy frontend to Vercel
+1. Deploy backend to Vercel
+2. Deploy frontend to GitHub Pages
 3. Configure production environment
 4. Monitor health endpoints
 

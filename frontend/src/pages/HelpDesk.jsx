@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import AppLayout from '../components/layout/AppLayout'
 import { useLanguage } from '../context/LanguageContext'
+import api from '../utils/api'
 
 const FAQS_ML = {
   English: [
@@ -249,24 +250,18 @@ export default function HelpDesk() {
     try {
       const controller = new AbortController()
       const timeout = setTimeout(() => controller.abort(), 5000)
-      const res = await fetch('http://localhost:8001/chat', {
-        method:'POST', headers:{ 'Content-Type':'application/json' },
-        signal: controller.signal,
-        body: JSON.stringify({
+      const res = await api.post('/chat', {
           message: userMsg,
           // ✅ KEY FIX: very strict language instruction
           system: `You are MuseAI support bot. IMPORTANT: You MUST reply ONLY in ${lang} language. Do NOT use English if the language is not English. Reply in ${lang} script/characters only. Max 2-3 sentences. Key facts: Free=10gen/month, Pro=₹999/month 100gen, Agency=₹4999/month unlimited. Content types: Script, Visual, Music, Campaign.`
-        })
-      })
+        }, { signal: controller.signal, timeout: 5000 })
       clearTimeout(timeout)
-      if (res.ok) {
-        const data = await res.json()
-        const txt = data.output || data.reply || data.message || null
-        if (txt) {
-          setMessages(prev => [...prev, { role:'assistant', text:txt }])
-          setChatLoading(false)
-          return
-        }
+      const data = res.data
+      const txt = data.output || data.reply || data.message || null
+      if (txt) {
+        setMessages(prev => [...prev, { role:'assistant', text:txt }])
+        setChatLoading(false)
+        return
       }
       throw new Error('no output')
     } catch {

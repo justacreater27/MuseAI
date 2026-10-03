@@ -125,8 +125,7 @@ print("""
 📝 Next Steps:
    1. Configure social media API credentials
    2. Set environment variables
-   3. Deploy backend to Render
-   4. Deploy frontend to Vercel
+   3. Deploy the frontend to GitHub Pages and backend to Vercel (see DEPLOYMENT.md)
    5. Monitor health endpoints
 """)
 print("="*60 + "\n")

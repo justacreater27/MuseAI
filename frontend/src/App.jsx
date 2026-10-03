@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { AuthProvider }    from './context/AuthContext'
 import { HistoryProvider } from './context/HistoryContext'
 import { LanguageProvider } from './context/LanguageContext'
@@ -50,9 +50,9 @@ export default function App() {
       <AuthProvider>
         <HistoryProvider>
           <LanguageProvider>
-            <BrowserRouter>
+            <HashRouter>
               <AnimatedRoutes />
-            </BrowserRouter>
+            </HashRouter>
           </LanguageProvider>
         </HistoryProvider>
       </AuthProvider>

@@ -338,7 +338,7 @@ curl http://localhost:8000/platform/info
 
 ## 🚀 Deployment
 
-### Backend (Render.com)
+### Backend (Vercel)
 ```bash
 # Build command
 pip install -r backend/requirements.txt
@@ -347,7 +347,7 @@ pip install -r backend/requirements.txt
 uvicorn backend.main:app --host 0.0.0.0 --port 8000
 ```
 
-### Frontend (Vercel)
+### Frontend (GitHub Pages)
 ```bash
 # Build
 npm run build

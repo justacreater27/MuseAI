@@ -1,6 +1,6 @@
 from backend.main import app
 
-# Expose `app` for ASGI servers (uvicorn / Render)
+# Expose `app` for ASGI servers (uvicorn)
 
 if __name__ == "__main__":
     import uvicorn

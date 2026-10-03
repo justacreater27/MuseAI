@@ -315,7 +315,7 @@ Located in `backend/data/`:
 | `main.py` | Main FastAPI application, endpoints, and AI integration |
 | `requirements.txt` | Python dependencies |
 | `cultural_data.json` | Regional and festival data for content generation |
-| `render.yaml` | Deployment configuration |
+| `vercel.json` | Vercel backend function configuration |
 
 #### Data Management
 | Module | Purpose |
@@ -413,7 +413,7 @@ Located in `backend/data/`:
 ### Configuration Files
 
 #### Backend
-- `render.yaml` - Deployment config for Render platform
+- `vercel.json` - Vercel backend function configuration
 - `requirements.txt` - Python dependencies
 
 #### Frontend
@@ -471,13 +471,12 @@ Located in `backend/data/`:
 ## Deployment
 
 ### Frontend
-- Hosted on **Vercel**
+- Hosted on **GitHub Pages**
 - URLs: 
-  - https://frontend-sage-gamma-22.vercel.app
-  - https://frontend-r6jvjs6ab-fouzuls-projects.vercel.app
+  - https://justacreater27.github.io/MuseAI/
 
 ### Backend
-- Deployed on **Render** (via `render.yaml`)
+- Deployed on **Vercel** (from the repository root)
 - Uses Uvicorn ASGI server
 - Environment variables for API keys
 
@@ -493,5 +492,5 @@ Located in `backend/data/`:
 | **AI** | Google Gemini + Groq | Multi-provider AI generation |
 | **Auth** | Firebase Auth | Email + Google OAuth |
 | **Storage** | Firebase Storage | User files and media |
-| **Deployment** | Vercel + Render | Frontend and backend hosting |
+| **Deployment** | GitHub Pages + Vercel | Frontend and backend hosting |
 
