@@ -13,7 +13,12 @@ from typing import List, Optional
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
-from backend.content_calendar.router import router as content_calendar_router
+try:
+    from backend.content_calendar.router import router as content_calendar_router
+except ModuleNotFoundError as error:
+    if error.name != "backend":
+        raise
+    from content_calendar.router import router as content_calendar_router
 
 # Windows terminals often default to cp1252, which cannot encode the Unicode
 # status symbols used in request logs. Prevent a log message from failing an
@@ -25,9 +30,16 @@ for _stream in (sys.stdout, sys.stderr):
 # ── Optional RAG Trend Intelligence ──────────────────────────────
 try:
     from backend.rag.retriever import retrieve_trends, format_trends_for_prompt
-except ImportError:
-    retrieve_trends = None
-    format_trends_for_prompt = None
+except ImportError as error:
+    if getattr(error, "name", None) != "backend":
+        retrieve_trends = None
+        format_trends_for_prompt = None
+    else:
+        try:
+            from rag.retriever import retrieve_trends, format_trends_for_prompt
+        except ImportError:
+            retrieve_trends = None
+            format_trends_for_prompt = None
 
 
 # Import social media and database modules

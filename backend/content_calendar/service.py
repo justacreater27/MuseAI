@@ -44,7 +44,12 @@ def retrieve_relevant_trends(request, top_k: int = 30) -> List[Dict[str, Any]]:
     Trend Engine output as a local fallback when embeddings are unavailable.
     """
     try:
-        from backend.rag.retriever import retrieve_trends
+        try:
+            from backend.rag.retriever import retrieve_trends
+        except ModuleNotFoundError as error:
+            if error.name != "backend":
+                raise
+            from rag.retriever import retrieve_trends
 
         ranked = retrieve_trends(
             brand=request.brand_name,

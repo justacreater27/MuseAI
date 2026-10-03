@@ -20,7 +20,7 @@ Add `justacreater27.github.io` to Firebase Authentication's authorized domains s
 
 ## Backend: Vercel Hobby
 
-Import `justacreater27/MuseAI` into Vercel and set the project root to the repository root. Vercel serves the existing FastAPI app from root `app.py` (which imports `backend.main:app`) using the root `requirements.txt` include of `backend/requirements.txt`. The backend URL has the form `https://<vercel-project>.vercel.app`.
+Import `justacreater27/MuseAI` into Vercel and set **Root Directory** to `backend`. Vercel detects the existing FastAPI instance `app` in `main.py` and installs dependencies from `backend/requirements.txt`. The backend URL will be assigned by Vercel after deployment; use that URL as the frontend's `VITE_API_URL` GitHub Actions secret.
 
 Set these Vercel environment variables for production (and Preview if desired):
 
@@ -30,7 +30,7 @@ Set these Vercel environment variables for production (and Preview if desired):
 
 At least one AI provider key is needed for AI generation. `GEMINI_API_KEY` is also needed for trend embedding refresh. Optional social integration variables are `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`, `LINKEDIN_ACCESS_TOKEN`, `INSTAGRAM_ACCESS_TOKEN`, and `INSTAGRAM_BUSINESS_ACCOUNT_ID`. `MUSEAI_DATA_DIR` can select a writable data directory, but Vercel's function filesystem is ephemeral; JSON-backed user data is not durable across invocations/deployments.
 
-The Vercel Hobby function duration is configured to 60 seconds. Frontend generation calls may need to account for that platform limit.
+The backend-only `backend/vercel.json` config sets a 60-second function duration.
 
 ## Trend engine
 
